@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
@@ -35,7 +35,8 @@ class UserProfileManager(BaseUserManager):
         return user       
     
         
-class UserProfile(AbstractUser, PermissionsMixin):
+class UserProfile(AbstractBaseUser, PermissionsMixin):
+# class UserProfile(AbstractUser, PermissionsMixin):
     """Represents a "User Profile" insider our system"""
 
     email =  models.EmailField(max_length=255, unique=True)
@@ -49,7 +50,7 @@ class UserProfile(AbstractUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name']
     
-    def ger_full_name(self):
+    def get_full_name(self):
         """Used to get a users full name."""
         return self.name
 
